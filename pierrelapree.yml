@@ -5,30 +5,22 @@
 
   tasks:
     - homebrew_tap:
-        name: caskroom/fonts       
+        name: caskroom/fonts
     - name: install node
       homebrew: name={{item}} state=latest
       with_items:
-        - node       
+        - node
     - name: install personal cask applications
       homebrew_cask: name={{item}} state=present
       with_items:
-        - kaleidoscope
-        - hazel
-        - tower
-        - superduper
-        - keepingyouawake
         - google-chrome
         - microsoft-office
-        - paw
-        - adobe-creative-cloud
         - alfred
         - dropbox
         - grammarly
-        - jaxx
         - visual-studio-code
-        - font-fira-code
-        - google-drive-file-stream
+        - spotify
+        - keepingyouawake
     - name: create ssh directory
       become: yes
       file:
@@ -49,30 +41,48 @@
       copy:
         src: files/ssh_config
         dest: /etc/ssh/ssh_config
-    - name: add to sudoers without password
-      become: yes
-      lineinfile: >
-        dest=/etc/sudoers
-        regexp="{{ item.regexp }}"
-        line="{{ item.line }}"
-        state=present
-        create=true
-      with_items:
-        - { regexp: '^roderik', line: 'roderik ALL=(ALL) NOPASSWD: ALL' }
+
 
   roles:
     - profile-all
     - profile-developer
 
   vars:
-    - computername: moneta
-    - git_user_name: Roderik van der Veer
-    - git_user_email: roderik@settlemint.com
+    - computername: per-angusta-laptop
+    - git_user_name: Pierre Laprée
+    - git_user_email: pilap82@lapree.DSDontWriteNetworkStores
+    - sublime_packages:
+        - dest: "SideBarEnhancements"
+          repo: "https://github.com/titoBouzout/SideBarEnhancements"
+          version: "st3"
+        - dest: "GitGutter"
+          repo: "https://github.com/jisaacks/GitGutter.git"
+          version: "master"
+        - dest: "BracketHighlighter"
+          repo: "https://github.com/facelessuser/BracketHighlighter.git"
+          version: "master"
+        - dest: "Theme - Soda"
+          repo: "https://github.com/buymeasoda/soda-theme.git"
+          version: "master"
+        - dest: "Base16"
+          repo: "https://github.com/chriskempson/base16-textmate.git"
+          version: "master"
+        - dest: "ApplySyntax"
+          repo: "https://github.com/facelessuser/ApplySyntax.git"
+          version: "master"
+        - dest: "SublimeAllAutocomplete"
+          repo: "https://github.com/alienhard/SublimeAllAutocomplete"
+          version: "master"
+        - dest: "Ansible"
+          repo: "https://github.com/clifford-github/sublime-ansible.git"
+          version: "master"
+    - sublime_text_color_scheme: "Packages/Base16/base16-eighties.dark.tmTheme"
+    - sublime_text_theme: "Soda Dark 3.sublime-theme"
     - osx_defaults:
       - domain: 'com.apple.dock'
         key: 'autohide'
         type: boolean
-        value: true
+        value: false
       - domain: 'com.apple.dock'
         key: 'minimize-to-application'
         type: integer
@@ -101,10 +111,6 @@
         key: 'InitialKeyRepeat'
         type: integer
         value: 15
-      - domain: 'com.apple.menuextra.clock'
-        key: 'DateFormat'
-        type: string
-        value: EEE MMM d  HH:mm
       - domain: 'com.apple.menuextra.battery'
         key: 'ShowPercent'
         type: string
