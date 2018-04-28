@@ -10,14 +10,16 @@
       homebrew: name={{item}} state=latest
       with_items:
         - node
+    - name: install MAS (CLI for Mac App Store)
+      homebrew:
+        name: mas
+        state: latest
     - name: install personal cask applications
       homebrew_cask: name={{item}} state=present
-      tags:
-        - cask_apps
-
       with_items:
         - google-chrome
         - microsoft-office
+        - iterm2
         - alfred
         - dropbox
         - grammarly
@@ -33,13 +35,24 @@
         - skype
         - skype-for-business
         - spectacle
-        - virtual-box
-        - virtual-box-extension-pack
+        # - virtualbox
+        # - virtualbox-extension-pack
         - vlc
         - whatsapp
         - windscribe
         - mas
-        - keepingyouawake
+    - name: Install Mac App Store apps.
+      shell: mas list | grep {{ item }} || mas install {{ item }}
+      with_items:
+        - 407963104 # Pixelmator
+        - 497799835 # Xcode
+        - 409183694 # Keynote
+        - 918207447 # Annotate
+        - 557168941 # Tweetbot
+        - 425424353 # The Unarchiver
+        - 412448059 # Forklift
+      register: result
+      changed_when: result.stdout.find('Installed') != -1
     - name: create ssh directory
       become: yes
       file:
@@ -63,17 +76,20 @@
 
 
   roles:
-    - profile-all
+    # - profile-all
     - profile-developer
 
   vars:
     - computername: per-angusta-laptop
     - git_user_name: Pierre Laprée
-    - git_user_email: pilap82@lapree.DSDontWriteNetworkStores
+    - git_user_email: pilap82@lapree.net
     - sublime_packages:
         - dest: "SideBarEnhancements"
           repo: "https://github.com/titoBouzout/SideBarEnhancements"
           version: "st3"
+        - dest: "Git"
+          repo: "https://github.com/kemayo/sublime-text-git.git"
+          version: "master"
         - dest: "GitGutter"
           repo: "https://github.com/jisaacks/GitGutter.git"
           version: "master"
@@ -95,7 +111,7 @@
         - dest: "Ansible"
           repo: "https://github.com/clifford-github/sublime-ansible.git"
           version: "master"
-    - sublime_text_color_scheme: "Packages/monokai.tmTheme"
+    - sublime_text_color_scheme: "Default/Monokai.tmTheme"
     - sublime_text_theme: "Soda Dark.sublime-theme"
     - osx_defaults:
       - domain: 'com.apple.dock'

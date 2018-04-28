@@ -11,8 +11,3 @@
     - xmlstarlet
     - watch
     - rsync
-
-- name: install developer cask applications
-  homebrew_cask: name={{item}} state=present
-  with_items:
-    - sequel-pro
