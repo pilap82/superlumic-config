@@ -12,6 +12,9 @@
         - node
     - name: install personal cask applications
       homebrew_cask: name={{item}} state=present
+      tags:
+        - cask_apps
+
       with_items:
         - google-chrome
         - microsoft-office
@@ -20,6 +23,22 @@
         - grammarly
         - visual-studio-code
         - spotify
+        - slack
+        - avast-security
+        - calibre
+        - licecap
+        - noun-project
+        - postico
+        - postman
+        - skype
+        - skype-for-business
+        - spectacle
+        - virtual-box
+        - virtual-box-extension-pack
+        - vlc
+        - whatsapp
+        - windscribe
+        - mas
         - keepingyouawake
     - name: create ssh directory
       become: yes
@@ -76,8 +95,8 @@
         - dest: "Ansible"
           repo: "https://github.com/clifford-github/sublime-ansible.git"
           version: "master"
-    - sublime_text_color_scheme: "Packages/Base16/base16-eighties.dark.tmTheme"
-    - sublime_text_theme: "Soda Dark 3.sublime-theme"
+    - sublime_text_color_scheme: "Packages/monokai.tmTheme"
+    - sublime_text_theme: "Soda Dark.sublime-theme"
     - osx_defaults:
       - domain: 'com.apple.dock'
         key: 'autohide'
