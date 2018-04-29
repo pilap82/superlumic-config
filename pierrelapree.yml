@@ -14,6 +14,8 @@
         - imagemagick
         - redis
         - qt
+        - rbenv
+        - ruby-build
     - name: install personal cask applications
       homebrew_cask: name={{item}} state=present
       with_items:
@@ -53,13 +55,6 @@
         - 412448059 # Forklift
       register: result
       changed_when: result.stdout.find('Installed') != -1
-    - name: Rubyenv
-      rbenv:
-        env: system
-        version: v1.0.0
-        default_ruby: 2.4.4
-        rubies:
-          - version: 2.4.4
     - name: Accept XCode license
       become: yes
       shell: xcodebuild -license accept
