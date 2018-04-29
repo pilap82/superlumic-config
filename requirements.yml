@@ -21,3 +21,6 @@
 - src: https://github.com/pilap82/ansible-role-postgresql.git
   name: roderik.superlumic-postgresql
 
+- src: https://github.com/pilap82/ansible-rb-env.git
+  name: roderik.superlumic-rbenv
+
