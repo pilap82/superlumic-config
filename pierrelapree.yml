@@ -40,7 +40,6 @@
         - vlc
         - whatsapp
         - windscribe
-        - mas
     - name: Install Mac App Store apps.
       shell: mas list | grep {{ item }} || mas install {{ item }}
       with_items:
@@ -53,6 +52,9 @@
         - 412448059 # Forklift
       register: result
       changed_when: result.stdout.find('Installed') != -1
+    - name: Accept XCode license
+      become: yes
+      shell: xcodebuild -license accept
     - name: create ssh directory
       become: yes
       file:
