@@ -53,9 +53,6 @@
         - 412448059 # Forklift
       register: result
       changed_when: result.stdout.find('Installed') != -1
-    - name: Accept XCode license
-      become: yes
-      shell: xcodebuild -license accept
     - name: Rubyenv
       rbenv:
         env: system
@@ -63,6 +60,9 @@
         default_ruby: 2.4.4
         rubies:
           - version: 2.4.4
+    - name: Accept XCode license
+      become: yes
+      shell: xcodebuild -license accept
   roles:
     - profile-developer
 
