@@ -6,14 +6,14 @@
   tasks:
     - homebrew_tap:
         name: caskroom/fonts
-    - name: install node
+    - name: Install homebrew apps
       homebrew: name={{item}} state=latest
       with_items:
         - node
-    - name: install MAS (CLI for Mac App Store)
-      homebrew:
-        name: mas
-        state: latest
+        - mas
+        - imagemagick
+        - redis
+        - qt
     - name: install personal cask applications
       homebrew_cask: name={{item}} state=present
       with_items:
@@ -27,6 +27,7 @@
         - spotify
         - slack
         - avast-security
+        - launchcontrol
         - calibre
         - licecap
         - noun-project
@@ -55,28 +56,13 @@
     - name: Accept XCode license
       become: yes
       shell: xcodebuild -license accept
-    - name: create ssh directory
-      become: yes
-      file:
-        path: "{{item}}"
-        state: directory
-        owner: root
-        group: wheel
-        mode: 0777
-      with_items:
-        - /etc/ssh
-    - name: personal ssh config
-      become: yes
-      copy:
-        src: files/ssh_config
-        dest: /etc/ssh_config
-    - name: personal ssh config in another location
-      become: yes
-      copy:
-        src: files/ssh_config
-        dest: /etc/ssh/ssh_config
-
-
+    - name: Rubyenv
+      rbenv:
+        env: system
+        version: v1.0.0
+        default_ruby: 2.4.4
+        rubies:
+          - version: 2.4.4
   roles:
     - profile-developer
 
