@@ -76,7 +76,6 @@
 
 
   roles:
-    # - profile-all
     - profile-developer
 
   vars:
@@ -111,7 +110,7 @@
         - dest: "Ansible"
           repo: "https://github.com/clifford-github/sublime-ansible.git"
           version: "master"
-    - sublime_text_color_scheme: "Default/Monokai.tmTheme"
+    - sublime_text_color_scheme: "Color Scheme - Default.sublime-package/Monokai.tmTheme"
     - sublime_text_theme: "Soda Dark.sublime-theme"
     - osx_defaults:
       - domain: 'com.apple.dock'
@@ -154,6 +153,10 @@
         key: 'FXPreferredViewStyle'
         type: string
         value: "clmv"
+      - domain: 'com.apple.finder'
+        key: 'ShowStatusBar'
+        type: boolean
+        value: true
       - domain: 'NSGlobalDomain'
         key: 'NSNavPanelExpandedStateForSaveMode'
         type: boolean
