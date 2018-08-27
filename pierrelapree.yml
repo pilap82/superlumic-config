@@ -20,7 +20,7 @@
       homebrew_cask: name={{item}} state=present
       with_items:
         - google-chrome
-        - microsoft-office
+#        - microsoft-office
         - iterm2
         - alfred
         - dropbox
