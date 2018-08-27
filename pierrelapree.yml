@@ -122,10 +122,6 @@
         type: boolean
         value: false
       - domain: 'com.apple.dock'
-        key: 'minimize-to-application'
-        type: integer
-        value: 1
-      - domain: 'com.apple.dock'
         key: 'show-process-indicators'
         type: boolean
         value: true
