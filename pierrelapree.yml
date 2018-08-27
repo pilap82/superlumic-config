@@ -4,8 +4,8 @@
   connection: local
 
   tasks:
-    - homebrew_tap:
-        name: caskroom/fonts
+#    - homebrew_tap:
+#        name: caskroom/fonts
     - name: install homebrew apps
       homebrew: name={{item}} state=latest
       with_items:
